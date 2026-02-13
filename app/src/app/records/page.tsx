@@ -52,8 +52,8 @@ function RecordBrowser() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-zinc-100">Records</h2>
+      <div className="flex items-center justify-between mb-4 md:mb-6">
+        <h2 className="text-xl md:text-2xl font-bold text-zinc-100">Records</h2>
         <button
           onClick={() => setShowCreate(!showCreate)}
           className="px-3 py-1.5 bg-zinc-100 text-zinc-900 rounded-md text-sm font-medium hover:bg-zinc-200 transition-colors"
@@ -64,7 +64,7 @@ function RecordBrowser() {
 
       {showCreate && (
         <form onSubmit={handleCreate} className="mb-6 p-4 bg-zinc-900 border border-zinc-800 rounded-lg space-y-3">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs text-zinc-500 mb-1">Domain</label>
               <select
@@ -132,7 +132,7 @@ function RecordBrowser() {
         </form>
       </div>
 
-      <div className="flex gap-2 mb-4 flex-wrap">
+      <div className="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-1 px-1 sm:flex-wrap sm:overflow-visible">
         <button
           onClick={() => setActiveDomain(null)}
           className={`px-2 py-1 rounded text-xs ${!activeDomain ? 'bg-zinc-700 text-zinc-100' : 'bg-zinc-900 text-zinc-500 hover:text-zinc-300'}`}
@@ -143,7 +143,7 @@ function RecordBrowser() {
           <button
             key={d.id}
             onClick={() => setActiveDomain(d.id)}
-            className={`px-2 py-1 rounded text-xs ${activeDomain === d.id ? 'bg-zinc-700 text-zinc-100' : 'bg-zinc-900 text-zinc-500 hover:text-zinc-300'}`}
+            className={`px-2 py-1 rounded text-xs whitespace-nowrap flex-shrink-0 ${activeDomain === d.id ? 'bg-zinc-700 text-zinc-100' : 'bg-zinc-900 text-zinc-500 hover:text-zinc-300'}`}
           >
             {d.icon} {d.label}
           </button>
@@ -162,16 +162,16 @@ function RecordBrowser() {
               href={`/records/${r.domain}/${r.slug}`}
               className="block p-3 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-zinc-700 transition-colors"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-sm font-medium text-zinc-200">{r.title}</span>
-                  <span className="text-xs text-zinc-600 ml-2">{r.domain}/{r.record_type}</span>
+              <div className="flex items-start sm:items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <span className="text-sm font-medium text-zinc-200 block truncate">{r.title}</span>
+                  <span className="text-xs text-zinc-600">{r.domain}/{r.record_type}</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-shrink-0">
                   {r.priority > 0 && (
                     <span className="text-xs text-yellow-600">P{r.priority}</span>
                   )}
-                  <span className="text-xs text-zinc-600">{new Date(r.updated_at).toLocaleDateString()}</span>
+                  <span className="text-xs text-zinc-600 hidden sm:inline">{new Date(r.updated_at).toLocaleDateString()}</span>
                 </div>
               </div>
               {r.content && (

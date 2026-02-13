@@ -20,6 +20,7 @@ function ChatContent() {
   const [mode, setMode] = useState<Mode>('strategy');
   const [advisorId, setAdvisorId] = useState<string>('');
   const [chatKey, setChatKey] = useState(0);
+  const [panelOpen, setPanelOpen] = useState(false);
 
   const context =
     contextType === 'advisor' && advisorId
@@ -35,46 +36,106 @@ function ChatContent() {
       setAdvisorId(value);
     }
     setChatKey((k) => k + 1);
+    setPanelOpen(false);
   }
 
+  const currentLabel =
+    contextType === 'advisor'
+      ? BUILTIN_AGENTS.find((a) => a.id === advisorId)?.name || 'Advisor'
+      : MODES.find((m) => m.id === mode)?.label || 'Strategy';
+
   return (
-    <div className="flex h-[calc(100vh-120px)]">
-      <div className="w-48 border-r border-zinc-800 pr-4 space-y-4 overflow-y-auto">
-        <div>
-          <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-2">Modes</h3>
-          {MODES.map((m) => (
-            <button
-              key={m.id}
-              onClick={() => switchContext('mode', m.id)}
-              className={`block w-full text-left px-2 py-1.5 rounded text-sm mb-1 ${
-                contextType === 'mode' && mode === m.id
-                  ? 'bg-zinc-800 text-zinc-100'
-                  : 'text-zinc-500 hover:text-zinc-300'
-              }`}
-            >
-              {m.label}
-            </button>
-          ))}
-        </div>
-        <div>
-          <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-2">Advisors</h3>
-          {BUILTIN_AGENTS.map((a) => (
-            <button
-              key={a.id}
-              onClick={() => switchContext('advisor', a.id)}
-              className={`block w-full text-left px-2 py-1.5 rounded text-sm mb-1 ${
-                contextType === 'advisor' && advisorId === a.id
-                  ? 'bg-zinc-800 text-zinc-100'
-                  : 'text-zinc-500 hover:text-zinc-300'
-              }`}
-            >
-              {a.avatar} {a.name}
-            </button>
-          ))}
-        </div>
+    <div className="flex flex-col h-[calc(100vh-120px)] md:h-[calc(100vh-120px)]">
+      {/* Mobile context selector */}
+      <div className="md:hidden mb-3">
+        <button
+          onClick={() => setPanelOpen(!panelOpen)}
+          className="flex items-center gap-2 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-md text-sm text-zinc-200 w-full"
+        >
+          <span className="flex-1 text-left">{currentLabel}</span>
+          <span className="text-zinc-500 text-xs">{panelOpen ? '▲' : '▼'}</span>
+        </button>
+        {panelOpen && (
+          <div className="mt-2 p-3 bg-zinc-900 border border-zinc-800 rounded-lg space-y-3">
+            <div>
+              <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-2">Modes</h3>
+              <div className="flex flex-wrap gap-2">
+                {MODES.map((m) => (
+                  <button
+                    key={m.id}
+                    onClick={() => switchContext('mode', m.id)}
+                    className={`px-3 py-1.5 rounded-md text-sm ${
+                      contextType === 'mode' && mode === m.id
+                        ? 'bg-zinc-700 text-zinc-100'
+                        : 'bg-zinc-800 text-zinc-500'
+                    }`}
+                  >
+                    {m.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-2">Advisors</h3>
+              <div className="flex flex-wrap gap-2">
+                {BUILTIN_AGENTS.map((a) => (
+                  <button
+                    key={a.id}
+                    onClick={() => switchContext('advisor', a.id)}
+                    className={`px-3 py-1.5 rounded-md text-sm ${
+                      contextType === 'advisor' && advisorId === a.id
+                        ? 'bg-zinc-700 text-zinc-100'
+                        : 'bg-zinc-800 text-zinc-500'
+                    }`}
+                  >
+                    {a.avatar} {a.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      <div className="flex-1 pl-4">
-        <Chat key={chatKey} context={context} />
+
+      <div className="flex flex-1 min-h-0">
+        {/* Desktop sidebar */}
+        <div className="hidden md:block w-48 border-r border-zinc-800 pr-4 space-y-4 overflow-y-auto flex-shrink-0">
+          <div>
+            <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-2">Modes</h3>
+            {MODES.map((m) => (
+              <button
+                key={m.id}
+                onClick={() => switchContext('mode', m.id)}
+                className={`block w-full text-left px-2 py-1.5 rounded text-sm mb-1 ${
+                  contextType === 'mode' && mode === m.id
+                    ? 'bg-zinc-800 text-zinc-100'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                {m.label}
+              </button>
+            ))}
+          </div>
+          <div>
+            <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-2">Advisors</h3>
+            {BUILTIN_AGENTS.map((a) => (
+              <button
+                key={a.id}
+                onClick={() => switchContext('advisor', a.id)}
+                className={`block w-full text-left px-2 py-1.5 rounded text-sm mb-1 ${
+                  contextType === 'advisor' && advisorId === a.id
+                    ? 'bg-zinc-800 text-zinc-100'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                {a.avatar} {a.name}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="flex-1 md:pl-4 min-w-0">
+          <Chat key={chatKey} context={context} />
+        </div>
       </div>
     </div>
   );

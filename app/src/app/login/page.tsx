@@ -35,8 +35,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-zinc-950">
-      <div className="w-full max-w-sm p-8 bg-zinc-900 rounded-lg border border-zinc-800">
+    <div className="flex items-center justify-center min-h-screen bg-zinc-950 px-4">
+      <div className="w-full max-w-sm p-6 md:p-8 bg-zinc-900 rounded-lg border border-zinc-800">
         <h1 className="text-2xl font-bold text-zinc-100 mb-1">Strategy Kernel</h1>
         <p className="text-sm text-zinc-500 mb-6">
           {isRegister ? 'Create your account' : 'Sign in to continue'}

@@ -54,7 +54,7 @@ function CouncilView() {
 
   return (
     <div className="h-[calc(100vh-120px)] flex flex-col">
-      <h2 className="text-2xl font-bold text-zinc-100 mb-4">Council of Advisors</h2>
+      <h2 className="text-xl md:text-2xl font-bold text-zinc-100 mb-4">Council of Advisors</h2>
 
       <div className="mb-4">
         <p className="text-sm text-zinc-500 mb-2">Select 2-6 advisors for the debate:</p>
@@ -76,7 +76,7 @@ function CouncilView() {
         </div>
       </div>
 
-      <form onSubmit={startDebate} className="mb-4 flex gap-2">
+      <form onSubmit={startDebate} className="mb-4 flex flex-col sm:flex-row gap-2">
         <input
           type="text"
           value={topic}
@@ -88,7 +88,7 @@ function CouncilView() {
         <button
           type="submit"
           disabled={running || selectedAgents.length < 2 || !topic.trim()}
-          className="px-4 py-2 bg-zinc-100 text-zinc-900 rounded-md text-sm font-medium hover:bg-zinc-200 disabled:opacity-50"
+          className="px-4 py-2 bg-zinc-100 text-zinc-900 rounded-md text-sm font-medium hover:bg-zinc-200 disabled:opacity-50 whitespace-nowrap"
         >
           {running ? 'Debating...' : 'Start Debate'}
         </button>
@@ -96,7 +96,7 @@ function CouncilView() {
 
       <div
         ref={transcriptRef}
-        className="flex-1 overflow-y-auto bg-zinc-900 border border-zinc-800 rounded-lg p-6"
+        className="flex-1 overflow-y-auto bg-zinc-900 border border-zinc-800 rounded-lg p-4 md:p-6"
       >
         {transcript ? (
           <div className="prose prose-sm max-w-none">

@@ -70,15 +70,15 @@ function RecordDetail() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
-        <div>
+      <div className="flex items-start sm:items-center justify-between mb-4 gap-2">
+        <div className="min-w-0">
           <a href="/records" className="text-xs text-zinc-600 hover:text-zinc-400">
             &larr; Records
           </a>
           <span className="text-xs text-zinc-700 mx-2">/</span>
           <span className="text-xs text-zinc-500">{record.domain}</span>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-shrink-0">
           <button
             onClick={() => setEditing(!editing)}
             className="px-3 py-1 text-sm text-zinc-400 hover:text-zinc-200 border border-zinc-800 rounded hover:border-zinc-700"
@@ -105,8 +105,8 @@ function RecordDetail() {
           <textarea
             value={editContent}
             onChange={(e) => setEditContent(e.target.value)}
-            rows={24}
-            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-md text-sm text-zinc-200 font-mono focus:outline-none focus:border-zinc-600"
+            rows={16}
+            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-md text-sm text-zinc-200 font-mono focus:outline-none focus:border-zinc-600 min-h-[200px] md:min-h-[400px]"
           />
           <div className="flex gap-2">
             <button
@@ -131,11 +131,11 @@ function RecordDetail() {
       ) : (
         <div>
           <h1 className="text-2xl font-bold text-zinc-100 mb-2">{record.title}</h1>
-          <div className="flex gap-3 text-xs text-zinc-600 mb-6">
+          <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-zinc-600 mb-6">
             <span>{record.domain}/{record.record_type}</span>
-            <span>Priority: {record.priority}</span>
-            <span>Source: {record.source}</span>
-            <span>Updated: {new Date(record.updated_at).toLocaleString()}</span>
+            <span>P{record.priority}</span>
+            <span>{record.source}</span>
+            <span>{new Date(record.updated_at).toLocaleDateString()}</span>
           </div>
           <div className="prose max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{record.content}</ReactMarkdown>
