@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: strategy-kernel
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: starter
+    region: oregon
+    healthCheckPath: /login
+    disk:
+      name: strategy-kernel-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+      - key: NEXTAUTH_URL
+        sync: false  # Set to your Render URL after first deploy
+      - key: ANTHROPIC_API_KEY
+        sync: false  # Set manually in Render dashboard
+      - key: DB_PATH
+        value: /data/strategy-kernel.db

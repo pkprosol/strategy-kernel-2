@@ -1,0 +1,10 @@
+node_modules
+.next
+*.db
+*.db-wal
+*.db-shm
+.env
+.env.local
+.git
+mcp-server/node_modules
+mcp-server/build
