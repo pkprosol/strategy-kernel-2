@@ -11,7 +11,7 @@ interface Message {
 
 interface ChatProps {
   context: any;
-  onExerciseComplete?: (content: string) => void;
+  onExerciseComplete?: (content: string, structuredData?: Record<string, unknown>) => void;
 }
 
 export default function Chat({ context, onExerciseComplete }: ChatProps) {
@@ -63,7 +63,7 @@ export default function Chat({ context, onExerciseComplete }: ChatProps) {
         try {
           const parsed = JSON.parse(fullText);
           if (parsed.exercise_complete && parsed.document) {
-            onExerciseComplete(parsed.document);
+            onExerciseComplete(parsed.document, parsed.structured_rewards ? { structured_rewards: parsed.structured_rewards } : undefined);
           }
         } catch {
           // Not JSON, check if it contains the marker
@@ -71,7 +71,7 @@ export default function Chat({ context, onExerciseComplete }: ChatProps) {
           if (match) {
             try {
               const parsed = JSON.parse(match[0]);
-              if (parsed.document) onExerciseComplete(parsed.document);
+              if (parsed.document) onExerciseComplete(parsed.document, parsed.structured_rewards ? { structured_rewards: parsed.structured_rewards } : undefined);
             } catch {}
           }
         }

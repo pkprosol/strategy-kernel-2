@@ -2,6 +2,8 @@ export interface ExerciseDefinition {
   id: string;
   name: string;
   description: string;
+  icon: string;
+  duration: string;
   category: string;
   output_domain: string;
   output_slug: string;
@@ -16,6 +18,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     id: 'ideal-self',
     name: 'Ideal Self / North Star',
     description: 'Envision your ideal self across 7 life domains: Physical, Mental, Relational, Professional, Character, Financial, and Lifestyle.',
+    icon: '🌟',
+    duration: '30-45 min',
     category: 'identity',
     output_domain: 'assessment',
     output_slug: 'ideal-self-north-star',
@@ -45,6 +49,8 @@ When complete, return ONLY a JSON object (no other text):
     id: 'obituary',
     name: 'Obituary',
     description: 'Write your own obituary as a powerful legacy and motivation tool.',
+    icon: '📜',
+    duration: '25-35 min',
     category: 'identity',
     output_domain: 'strategy',
     output_slug: 'obituary',
@@ -68,6 +74,8 @@ When complete, return ONLY a JSON object:
     id: 'values-hierarchy',
     name: 'Values Hierarchy',
     description: 'Identify and rank your core values through guided reflection.',
+    icon: '⚖️',
+    duration: '25-35 min',
     category: 'identity',
     output_domain: 'belief',
     output_slug: 'values-hierarchy',
@@ -89,6 +97,8 @@ When complete, return ONLY a JSON object:
     id: 'fear-inventory',
     name: 'Fear Inventory',
     description: 'Catalog your fears and analyze how they influence decisions.',
+    icon: '🔦',
+    duration: '25-35 min',
     category: 'identity',
     output_domain: 'assessment',
     output_slug: 'fear-inventory',
@@ -110,6 +120,8 @@ When complete, return ONLY a JSON object:
     id: 'life-vision',
     name: 'Life Vision (3-5 Year)',
     description: 'Create a detailed day-in-the-life vision of your ideal future.',
+    icon: '🔭',
+    duration: '30-40 min',
     category: 'strategy',
     output_domain: 'strategy',
     output_slug: 'life-vision-3-5-year',
@@ -136,6 +148,8 @@ When complete, return ONLY a JSON object:
     id: 'legacy-letter',
     name: 'Legacy Letter',
     description: 'Write a letter to your future self or loved ones about what matters most.',
+    icon: '✉️',
+    duration: '25-35 min',
     category: 'identity',
     output_domain: 'strategy',
     output_slug: 'legacy-letter',
@@ -159,6 +173,8 @@ When complete, return ONLY a JSON object:
     id: 'weekly-review',
     name: 'Weekly Review',
     description: 'Structured reflection on the past week and intention-setting for the next.',
+    icon: '📋',
+    duration: '15-20 min',
     category: 'review',
     output_domain: 'journal',
     output_slug: '', // dynamic: weekly-review-YYYY-MM-DD
@@ -182,6 +198,8 @@ When complete, return ONLY a JSON object:
     id: 'daily-brief',
     name: 'Daily Brief',
     description: 'Start your day with a focused brief covering priorities, energy, and intentions.',
+    icon: '☀️',
+    duration: '5-10 min',
     category: 'review',
     output_domain: 'daily-brief',
     output_slug: '', // dynamic: YYYY-MM-DD
@@ -202,11 +220,42 @@ When complete, return ONLY a JSON object:
 {"exercise_complete": true, "document": "# Daily Brief — [Date]\\n\\n...full markdown..."}`,
   },
 
+  {
+    id: 'reward-menu',
+    name: 'Reward Menu',
+    description: 'Design your personal reward menu with tiered rewards for small, medium, and large wins.',
+    icon: '🎁',
+    duration: '15-20 min',
+    category: 'strategy',
+    output_domain: 'strategy',
+    output_slug: 'reward-menu',
+    output_record_type: 'reward-menu',
+    output_title: 'Reward Menu',
+    system_prompt: `You are a behavioral design coach helping someone create a personal Reward Menu — a tiered list of rewards they can earn by completing tasks.
+
+Guide them through creating three tiers:
+
+1. **Small Rewards** (5-8 items) — Quick treats for daily wins like completing a daily brief or a single task. These should take 5-30 minutes and feel like a nice break.
+2. **Medium Rewards** (4-6 items) — Earned for weekly milestones like finishing a todo section or completing a set of exercises. These should feel more substantial, 30 min to a few hours.
+3. **Large Rewards** (3-5 items) — Earned for major completions like quarterly goals or big life milestones. These should feel truly special.
+
+For each tier, help them brainstorm rewards that:
+- Are personally meaningful (not generic)
+- Are realistic and accessible
+- Include a mix of solo and social options
+- Have a clear emoji and short description
+
+When complete, return ONLY a JSON object (no other text):
+{"exercise_complete": true, "document": "# Reward Menu\\n\\n## Small Rewards\\n| Emoji | Reward |\\n|-------|--------|\\n| ☕ | Example |\\n\\n## Medium Rewards\\n| Emoji | Reward |\\n|-------|--------|\\n| 🎮 | Example |\\n\\n## Large Rewards\\n| Emoji | Reward |\\n|-------|--------|\\n| ✈️ | Example |", "structured_rewards": {"small": [{"emoji": "☕", "text": "Example"}], "medium": [{"emoji": "🎮", "text": "Example"}], "large": [{"emoji": "✈️", "text": "Example"}]}}`,
+  },
+
   // ── New Exercises ──────────────────────────────────────
   {
     id: 'saboteur-assessment',
     name: 'Saboteur Assessment',
     description: 'Identify your inner saboteurs — the internal voices that undermine your success.',
+    icon: '🎭',
+    duration: '30-40 min',
     category: 'identity',
     output_domain: 'assessment',
     output_slug: 'saboteur-assessment',
@@ -235,6 +284,8 @@ When complete, return ONLY a JSON object:
     id: 'strengths-assessment',
     name: 'Strengths Assessment',
     description: 'Discover your core strengths through structured reflection and evidence.',
+    icon: '💪',
+    duration: '25-35 min',
     category: 'identity',
     output_domain: 'assessment',
     output_slug: 'strengths-assessment',
@@ -258,6 +309,8 @@ When complete, return ONLY a JSON object:
     id: 'attachment-style',
     name: 'Attachment Style Reflection',
     description: 'Explore your attachment patterns in relationships.',
+    icon: '🔗',
+    duration: '25-35 min',
     category: 'identity',
     output_domain: 'assessment',
     output_slug: 'attachment-style',
@@ -287,6 +340,8 @@ When complete, return ONLY a JSON object:
     id: 'belief-audit',
     name: 'Belief Audit',
     description: 'Examine your core beliefs and evaluate which serve you.',
+    icon: '💡',
+    duration: '25-35 min',
     category: 'identity',
     output_domain: 'belief',
     output_slug: 'belief-audit',
@@ -314,6 +369,8 @@ When complete, return ONLY a JSON object:
     id: 'relationship-map',
     name: 'Relationship Map',
     description: 'Map your key relationships and assess their health and importance.',
+    icon: '🤝',
+    duration: '25-35 min',
     category: 'relationships',
     output_domain: 'relationship',
     output_slug: 'relationship-map',
@@ -340,6 +397,8 @@ When complete, return ONLY a JSON object:
     id: 'monthly-review',
     name: 'Monthly Review',
     description: 'Comprehensive monthly reflection on progress, patterns, and course corrections.',
+    icon: '📊',
+    duration: '25-35 min',
     category: 'review',
     output_domain: 'journal',
     output_slug: '', // dynamic
@@ -365,6 +424,8 @@ When complete, return ONLY a JSON object:
     id: 'energy-audit',
     name: 'Energy Audit',
     description: 'Map what gives and drains your energy to optimize your daily life.',
+    icon: '⚡',
+    duration: '25-35 min',
     category: 'health',
     output_domain: 'health',
     output_slug: 'energy-audit',
@@ -391,6 +452,8 @@ When complete, return ONLY a JSON object:
     id: 'financial-snapshot',
     name: 'Financial Snapshot',
     description: 'Take stock of your financial position, goals, and relationship with money.',
+    icon: '💰',
+    duration: '25-35 min',
     category: 'finance',
     output_domain: 'finance',
     output_slug: 'financial-snapshot',

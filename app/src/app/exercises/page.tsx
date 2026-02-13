@@ -14,7 +14,7 @@ function ExerciseLibrary() {
   const [savedMessage, setSavedMessage] = useState('');
   const grouped = getExercisesByCategory();
 
-  async function handleExerciseComplete(content: string) {
+  async function handleExerciseComplete(content: string, structuredData?: Record<string, unknown>) {
     if (!activeExercise) return;
 
     const today = new Date().toISOString().split('T')[0];
@@ -36,6 +36,7 @@ function ExerciseLibrary() {
         slug,
         title: activeExercise.output_title,
         content,
+        structured_data: structuredData ? JSON.stringify(structuredData) : undefined,
         source: 'exercise',
         source_detail: activeExercise.id,
       }),
@@ -56,8 +57,8 @@ function ExerciseLibrary() {
             >
               &larr; Exercises
             </button>
-            <h2 className="text-xl font-bold text-zinc-100">{activeExercise.name}</h2>
-            <p className="text-sm text-zinc-500">{activeExercise.description}</p>
+            <h2 className="text-xl font-bold text-zinc-100">{activeExercise.icon} {activeExercise.name}</h2>
+            <p className="text-sm text-zinc-500">{activeExercise.description} &middot; {activeExercise.duration}</p>
           </div>
           {savedMessage && (
             <span className="text-sm text-green-400">{savedMessage}</span>
@@ -89,11 +90,12 @@ function ExerciseLibrary() {
                 onClick={() => setActiveExercise(ex)}
                 className="text-left p-4 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-zinc-700 transition-colors"
               >
-                <h4 className="font-medium text-zinc-200 mb-1">{ex.name}</h4>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-lg">{ex.icon}</span>
+                  <h4 className="font-medium text-zinc-200">{ex.name}</h4>
+                </div>
                 <p className="text-xs text-zinc-500">{ex.description}</p>
-                <p className="text-xs text-zinc-700 mt-2">
-                  Output: {ex.output_domain}/{ex.output_record_type}
-                </p>
+                <p className="text-xs text-zinc-600 mt-2">{ex.duration}</p>
               </button>
             ))}
           </div>
